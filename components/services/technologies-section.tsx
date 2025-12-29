@@ -1,48 +1,138 @@
+import Image from "next/image"
+
 const technologies = [
-  { name: "React", category: "Frontend" },
-  { name: "Next.js", category: "Frontend" },
-  { name: "Node.js", category: "Backend" },
-  { name: "Python", category: "Backend" },
-  { name: "PostgreSQL", category: "Database" },
-  { name: "MongoDB", category: "Database" },
-  { name: "AWS", category: "Cloud" },
-  { name: "Azure", category: "Cloud" },
-  { name: "Docker", category: "DevOps" },
-  { name: "Kubernetes", category: "DevOps" },
-  { name: "React Native", category: "Mobile" },
-  { name: "Flutter", category: "Mobile" },
+  {
+    name: "React",
+    color: "from-cyan-400 to-blue-500",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+  },
+  {
+    name: "Next.js",
+    color: "from-gray-700 to-black",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+  },
+  {
+    name: "Node.js",
+    color: "from-green-400 to-emerald-600",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+  },
+  {
+    name: "Python",
+    color: "from-yellow-400 to-orange-500",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+  },
+  {
+    name: "MongoDB",
+    color: "from-green-500 to-lime-600",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+  },
+  {
+    name: "PostgreSQL",
+    color: "from-blue-600 to-indigo-700",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+  },
+  {
+  name: "AWS",
+  color: "from-orange-400 to-amber-600",
+  logo: "https://commons.wikimedia.org/wiki/Special:Redirect/file/Amazon_Web_Services_Logo.svg",
+},
+  {
+    name: "Docker",
+    color: "from-sky-400 to-blue-600",
+    logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+  },
 ]
 
 export function TechnologiesSection() {
   return (
-    <section className="py-20 lg:py-32 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+    <section
+      className="relative py-24 lg:py-32 bg-gradient-to-b from-background to-muted/30 overflow-hidden"
+      aria-labelledby="technologies-heading"
+    >
+      {/* Decorative background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-green-bright/10 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-green-bright/5 rounded-full blur-2xl animate-pulse" />
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        {/* Heading */}
+        <header className="text-center max-w-3xl mx-auto mb-20">
+          <h2
+            id="technologies-heading"
+            className="text-4xl md:text-5xl font-extrabold mb-6"
+          >
             Technologies <span className="text-green-bright">We Use</span>
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            We leverage the latest technologies and frameworks to build robust, scalable solutions.
+          <p className="text-xl text-muted-foreground">
+            We use modern, industry-standard technologies to build fast,
+            secure, scalable, and SEO-optimized digital products.
           </p>
-        </div>
+        </header>
 
-        <div className="flex flex-wrap justify-center gap-4">
+        {/* Technology Grid */}
+        <div
+          className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+          role="list"
+        >
           {technologies.map((tech, index) => (
-            <div
+            <article
               key={index}
-              className="group px-6 py-3 bg-card border border-border rounded-full hover:border-green-bright/50 hover:shadow-lg transition-all duration-300 animate-fade-in"
-              style={{ animationDelay: `${index * 30}ms` }}
+              role="listitem"
+              className="group relative rounded-3xl bg-card border border-border
+                         hover:border-green-bright/50 transition-all duration-500
+                         hover:-translate-y-2 hover:shadow-2xl"
+              style={{
+                opacity: 0,
+                transform: "translateY(20px)",
+                animation: "fadeInUp 0.8s ease forwards",
+                animationDelay: `${index * 120}ms`,
+              }}
             >
-              <div className="flex items-center gap-2">
-                <span className="text-foreground font-semibold group-hover:text-green-bright transition-colors">
+              {/* Gradient Top Bar */}
+              <div
+                className={`h-1 w-full rounded-t-3xl bg-gradient-to-r ${tech.color}`}
+              />
+
+              <div className="p-8 flex flex-col items-center text-center">
+                {/* Logo */}
+                <div className="relative w-16 h-16 mb-6 transition-transform duration-500 group-hover:scale-110">
+                  <Image
+                    src={tech.logo}
+                    alt={`${tech.name} official logo`}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+
+                {/* Name */}
+                <h3 className="text-xl font-bold group-hover:text-green-bright transition-colors">
                   {tech.name}
-                </span>
-                <span className="text-xs text-muted-foreground px-2 py-1 bg-muted rounded-full">{tech.category}</span>
+                </h3>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>
+
+      {/* Inline animation (safe) */}
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes fadeInUp {
+              from {
+                opacity: 0;
+                transform: translateY(20px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+          `,
+        }}
+      />
     </section>
   )
 }
