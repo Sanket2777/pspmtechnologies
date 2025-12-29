@@ -15,7 +15,9 @@ const navigation = [
     name: "Services",
     href: "/services",
     dropdown: [
-      { name: "AI & Machine Learning", href: "/services/ai-ml" },
+      { name: "Agentic AI Solutions", href: "/services/agentic-ai" },
+      { name: "AI Transformation (Transform legacy software and services)", href: "/services/ai-transformation" },
+      { name: "Chatbot", href: "/services/chatbot" },
       { name: "Web Development", href: "/services/web-development" },
       { name: "Mobile App Development", href: "/services/mobile-development" },
       { name: "IT Consulting", href: "/services/it-consulting" },

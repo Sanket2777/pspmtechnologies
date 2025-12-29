@@ -4,19 +4,18 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Analytics } from "@vercel/analytics/next";
 import { Suspense } from "react";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://pspmerp.in"), // ✅ Your domain
-
+  metadataBase: new URL("https://pspmerp.in"),
   title: {
     default: "PSPM Technologies | AI & IT Services",
     template: "%s | PSPM Technologies",
   },
-
   description:
     "PSPM Technologies is a leading provider of AI solutions, web development, application development, and IT consulting services.",
-
   keywords: [
     "PSPM Technologies",
     "AI Services",
@@ -25,48 +24,30 @@ export const metadata: Metadata = {
     "IT Consulting",
     "Software Company in India",
   ],
-
   authors: [{ name: "PSPM Technologies Pvt Ltd" }],
   generator: "Next.js",
-
-  icons: {
-    icon: "/fevicon.ico",
-  },
-
-  robots: {
-    index: true,
-    follow: true,
-  },
-
+  icons: { icon: "/fevicon.ico" },
+  robots: { index: true, follow: true },
   openGraph: {
     title: "PSPM Technologies | AI & IT Services",
     description:
       "Innovative AI, Web, App & IT Consulting services by PSPM Technologies.",
     url: "https://pspmerp.in",
     siteName: "PSPM Technologies",
-    images: [
-      {
-        url: "/aboutus.png", // must be in /public
-        width: 1200,
-        height: 630,
-        alt: "PSPM Technologies",
-      },
-    ],
+    images: [{ url: "/aboutus.png", width: 1200, height: 630, alt: "PSPM Technologies" }],
     type: "website",
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body
-        className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}
-      >
-        <Suspense fallback={null}>{children}</Suspense>
+      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
+        <Suspense fallback={null}>
+          <Header />
+          <main className="pt-20">{children}</main>
+          <Footer />
+        </Suspense>
         <Analytics />
       </body>
     </html>
