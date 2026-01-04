@@ -25,8 +25,10 @@ const navigation = [
     ],
   },
   { name: "Portfolio", href: "/portfolio" },
-  { name: "Team", href: "/team" },
+  //{ name: "Team", href: "/team" },
+    { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
+  
 ]
 
 export function Header() {
