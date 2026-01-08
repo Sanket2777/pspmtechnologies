@@ -1,54 +1,64 @@
 "use client"
 
-import { Globe, Smartphone, Users, Zap, Cpu } from "lucide-react"
+// import { Globe, Smartphone, Users, Zap, Cpu, Brain } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
 
+ import { Cpu, Brain, Bot, Globe, Smartphone, Users, TrendingUp } from "lucide-react"
+
 const features = [
   {
-    icon: Cpu,
-    title: "AI & Machine Learning Solutions",
+    icon: Brain,
+    title: "Agentic AI Solutions",
     description:
-      "We deliver advanced AI and machine learning solutions to help businesses worldwide automate processes, gain intelligent insights, and scale efficiently.",
-    link: "/services/ai-ml",
+      "We build intelligent Agentic AI systems that can reason, plan, and act autonomously to optimize workflows, enhance decision-making, and drive business innovation.",
+    link: "/services/agentic-ai",
+  },
+  {
+    icon: Cpu,
+    title: "AI Transformation",
+    description:
+      "Transform legacy software and traditional services using modern AI technologies to improve efficiency, automation, and scalability across business operations.",
+    link: "/services/ai-transformation",
+  },
+  {
+    icon: Bot,
+    title: "AI Chatbot Development",
+    description:
+      "Custom AI-powered chatbots for customer support, lead generation, and internal automation with seamless integration across web and mobile platforms.",
+    link: "/services/chatbot",
   },
   {
     icon: Globe,
-    title: "Website & Web Application Development",
+    title: "Web Development",
     description:
-      "We build high-performance, SEO-friendly websites and web applications for startups, enterprises, and global clients using modern technologies.",
+      "High-performance, responsive, and SEO-friendly websites and web applications built using modern frameworks for startups and enterprises worldwide.",
     link: "/services/web-development",
   },
   {
     icon: Smartphone,
-    title: "Mobile & Application Development",
+    title: "Mobile App Development",
     description:
-      "Custom mobile and desktop application development services designed for performance, scalability, and seamless user experience across platforms.",
-    link: "/services/app-development",
+      "Scalable and user-friendly mobile applications for Android and iOS designed to deliver seamless user experiences and business growth.",
+    link: "/services/mobile-development",
   },
   {
     icon: Users,
-    title: "IT Consulting & Digital Transformation",
+    title: "IT Consulting",
     description:
-      "Strategic IT consulting services helping businesses across India and globally with digital transformation, technology planning, and innovation.",
+      "Expert IT consulting services providing technology strategy, digital transformation, and system architecture guidance for global businesses.",
     link: "/services/it-consulting",
   },
   {
-    icon: Globe,
-    title: "SEO & Digital Marketing Services",
+    icon: TrendingUp,
+    title: "SEO & Digital Marketing",
     description:
-      "Result-driven SEO and digital marketing services including search engine optimization, content marketing, social media marketing, and online brand growth strategies for businesses in India and worldwide.",
+      "Data-driven SEO and digital marketing services including search optimization, content marketing, social media growth, and brand visibility.",
     link: "/services/seo-digital-marketing",
   },
-  {
-    icon: Zap,
-    title: "Performance Optimization & Automation",
-    description:
-      "System optimization and intelligent automation services to improve speed, efficiency, and operational performance for global businesses.",
-    link: "/services/automation",
-  },
 ]
+
 
 export function FeaturesSection() {
   const sliderRef = useRef<HTMLDivElement>(null)

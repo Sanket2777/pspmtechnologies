@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Send } from "lucide-react";
-import emailjs from "emailjs-com";
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -16,46 +15,49 @@ export function ContactForm() {
 
   const [status, setStatus] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     setStatus("Sending...");
 
-    emailjs
-      .send(
-        "YOUR_SERVICE_ID", // 🔹 replace with your EmailJS Service ID
-        "YOUR_TEMPLATE_ID", // 🔹 replace with your EmailJS Template ID
-        formData,
-        "YOUR_PUBLIC_KEY" // 🔹 replace with your EmailJS Public Key
-      )
-      .then(
-        () => {
-          setStatus("Message sent successfully ✅");
-          setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            company: "",
-            subject: "",
-            message: "",
-          });
-        },
-        (error) => {
-          console.error("EmailJS Error:", error);
-          setStatus("Failed to send message ❌ Please try again later.");
-        }
-      );
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setStatus(result.message);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          subject: "",
+          message: "",
+        });
+      } else {
+        setStatus(result.message || "Failed to send message ❌");
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus("Failed to send message ❌ Please try again later.");
+    }
   };
 
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in max-w-3xl mx-auto p-6 bg-card rounded-xl shadow-lg">
       <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
         Send Us a <span className="text-green-bright">Message</span>
       </h2>
@@ -64,6 +66,7 @@ export function ContactForm() {
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Name & Email */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label htmlFor="name" className="block text-sm font-semibold text-foreground mb-2">
@@ -76,11 +79,10 @@ export function ContactForm() {
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:outline-none focus:border-green-bright transition-colors text-foreground"
               placeholder="John Doe"
+              className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:border-green-bright transition-colors text-foreground"
             />
           </div>
-
           <div>
             <label htmlFor="email" className="block text-sm font-semibold text-foreground mb-2">
               Email Address *
@@ -92,12 +94,13 @@ export function ContactForm() {
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:outline-none focus:border-green-bright transition-colors text-foreground"
               placeholder="john@example.com"
+              className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:border-green-bright transition-colors text-foreground"
             />
           </div>
         </div>
 
+        {/* Phone & Company */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label htmlFor="phone" className="block text-sm font-semibold text-foreground mb-2">
@@ -109,11 +112,10 @@ export function ContactForm() {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:outline-none focus:border-green-bright transition-colors text-foreground"
               placeholder="+91 98765 43210"
+              className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:border-green-bright transition-colors text-foreground"
             />
           </div>
-
           <div>
             <label htmlFor="company" className="block text-sm font-semibold text-foreground mb-2">
               Company Name
@@ -124,12 +126,13 @@ export function ContactForm() {
               name="company"
               value={formData.company}
               onChange={handleChange}
-              className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:outline-none focus:border-green-bright transition-colors text-foreground"
               placeholder="Your Company"
+              className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:border-green-bright transition-colors text-foreground"
             />
           </div>
         </div>
 
+        {/* Subject */}
         <div>
           <label htmlFor="subject" className="block text-sm font-semibold text-foreground mb-2">
             Subject *
@@ -140,7 +143,7 @@ export function ContactForm() {
             value={formData.subject}
             onChange={handleChange}
             required
-            className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:outline-none focus:border-green-bright transition-colors text-foreground"
+            className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:border-green-bright transition-colors text-foreground"
           >
             <option value="">Select a subject</option>
             <option value="web">Web Development</option>
@@ -151,6 +154,7 @@ export function ContactForm() {
           </select>
         </div>
 
+        {/* Message */}
         <div>
           <label htmlFor="message" className="block text-sm font-semibold text-foreground mb-2">
             Message *
@@ -162,11 +166,12 @@ export function ContactForm() {
             onChange={handleChange}
             required
             rows={6}
-            className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:outline-none focus:border-green-bright transition-colors text-foreground resize-none"
             placeholder="Tell us about your project..."
+            className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:border-green-bright transition-colors text-foreground resize-none"
           />
         </div>
 
+        {/* Submit Button */}
         <button
           type="submit"
           className="group w-full md:w-auto px-8 py-4 bg-green-bright text-navy-dark font-semibold rounded-full hover:bg-green-bright/90 transition-all duration-300 shadow-lg hover:shadow-green-bright/30 flex items-center justify-center gap-2"
@@ -175,6 +180,7 @@ export function ContactForm() {
           <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
         </button>
 
+        {/* Status Message */}
         {status && (
           <p className="mt-4 text-center text-sm font-medium text-green-bright">{status}</p>
         )}

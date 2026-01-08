@@ -1,6 +1,6 @@
+import Blog from "@/components/blog/page"
+import { Footer } from "@/components/footer"
 import { Metadata } from "next"
-import { BlogHero } from "../../components/blog/BlogHero"
-import { BlogCategories } from "../../components/blog/BlogCategories"
 
 export const metadata: Metadata = {
   title: "Technology Blog | PSPM Technologies",
@@ -11,8 +11,9 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   return (
     <>
-      <BlogHero />
-      <BlogCategories />
+     <Blog/>
+     <Footer />
+
     </>
   )
 }
