@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Suspense fallback={null}>
           <Header />
           <main className="pt-20">{children}</main>
-          <Footer />
+          {/* <Footer /> */}
         </Suspense>
         <Analytics />
       </body>
