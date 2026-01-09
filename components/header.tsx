@@ -26,7 +26,7 @@ const navigation = [
   },
   { name: "Portfolio", href: "/portfolio" },
   //{ name: "Team", href: "/team" },
-    { name: "Blog", href: "/blog" },
+    { name: "Social Feed", href: "/Social Feed" },
   { name: "Contact", href: "/contact" },
   
 ]

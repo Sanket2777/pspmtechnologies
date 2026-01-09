@@ -12,6 +12,7 @@ import { Card, CardContent } from "@/components/ui/card"
 const services = [
   {
     title: "AI-Powered Solutions",
+    slug: "ai-powered-solutions",
     description:
       "Intelligent AI systems including chatbots, automation, and predictive analytics to accelerate business growth.",
     features: ["AI Chatbots", "NLP", "Predictive Analytics", "Automation"],
@@ -19,6 +20,7 @@ const services = [
   },
   {
     title: "Web Development",
+    slug: "web-development",
     description:
       "High-performance, scalable, and SEO-optimized web applications using modern frameworks.",
     features: ["Next.js", "React", "SEO", "Responsive UI"],
@@ -26,6 +28,7 @@ const services = [
   },
   {
     title: "Mobile App Development",
+    slug: "mobile-app-development",
     description:
       "Custom Android, iOS, and cross-platform mobile applications with seamless UX.",
     features: ["Android", "iOS", "Flutter", "APIs"],
@@ -33,6 +36,7 @@ const services = [
   },
   {
     title: "IT Consulting",
+    slug: "it-consulting",
     description:
       "Strategic IT consulting to optimize operations and enable digital transformation.",
     features: ["Strategy", "Architecture", "Optimization"],
@@ -40,6 +44,7 @@ const services = [
   },
   {
     title: "Custom Software",
+    slug: "custom-software",
     description:
       "Secure and scalable custom software tailored to enterprise needs.",
     features: ["Enterprise Apps", "Security", "Scalability"],
@@ -47,6 +52,7 @@ const services = [
   },
   {
     title: "Cloud & DevOps",
+    slug: "cloud-devops",
     description:
       "Cloud migration and DevOps automation for speed, reliability, and scalability.",
     features: ["AWS", "Azure", "CI/CD", "DevOps"],
@@ -181,7 +187,10 @@ export function ServicesGrid() {
   className="mt-auto bg-gradient-to-r from-green-500 to-blue-500 text-white hover:scale-105 hover:from-green-600 hover:to-blue-600 transition-all"
   aria-label={`Learn more about ${service.title}`}
 >
-  <Link href="/contact">Get Started</Link>
+  <Link href={`/services/${service.slug}`}>
+  Learn More
+</Link>
+
 </Button>
 
 
